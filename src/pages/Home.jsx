@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSearch } from "../context/SearchContext";
 
 export default function Home() {
+
   const { searchBook } = useSearch();
 
   // Fetch genres
@@ -22,10 +23,12 @@ export default function Home() {
   const books = booksData?.data?.books || [];
 
   // Filter books by search term
-  const filteredBooks = books.filter((book) =>
-    searchBook
+  const filteredBooks = books.filter((book) =>{
+    const searchMatch = searchBook
       ? book.title.toLowerCase().includes(searchBook.toLowerCase())
       : true
+      return searchMatch
+  }
   );
 
   return (
@@ -54,41 +57,7 @@ export default function Home() {
         </div>
       </section>
 
-      {searchBook && (
-        <section className="container py-2 my-4">
-          <h2>Search Results:</h2>
-          {booksLoading ? (
-            <p>Loading books...</p>
-          ) : booksError ? (
-            <p className="text-danger">Error loading books.</p>
-          ) : filteredBooks.length > 0 ? (
-            <div className="row">
-              {filteredBooks.map((book) => (
-                <div className="col-md-3 mb-4" key={book._id}>
-                  <div className="card p-3 h-100 shadow-sm">
-                    <img
-                      src={
-                        book.coverImageUrl ||
-                        "https://via.placeholder.com/200x300"
-                      }
-                      alt={book.title}
-                      style={{ height: "200px", objectFit: "cover" }}
-                    />
-                    <div className="mt-3">
-                      <h5 className="fw-bold">{book.title}</h5>
-                      <p className="text-muted">{book.author}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No books found.</p>
-          )}
-        </section>
-      )}
-
-      {!searchBook && (
+ (
         <section className="container py-2 my-4">
           <h2>Shop By Genre:</h2>
           {genresLoading ? (
@@ -109,8 +78,8 @@ export default function Home() {
             </div>
           )}
         </section>
-      )}
+      )
+
     </>
   );
 }
-

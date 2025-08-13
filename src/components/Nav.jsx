@@ -1,4 +1,4 @@
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink,Link,useNavigate } from "react-router-dom";
 import { useSearch } from "../context/SearchContext";
 import searchIcon from "../assets/search.svg";
 import wishlistIcon from "../assets/wishlist.svg";
@@ -6,11 +6,14 @@ import cartIcon from "../assets/cart.svg";
 
 export default function Nav() {
   const { searchBook, setSearchBook } = useSearch();
-    const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // stop page reload
-    navigate("/"); // ensure home page loads with searchBook
+    e.preventDefault();
+    if (searchBook.trim()) {
+      navigate("/genre/all");
+    }
   };
 
   return (
@@ -47,7 +50,7 @@ export default function Nav() {
           />
         </form >
         <button className="btn btn-dark mx-2">Login</button>
-        <img className="mx-2" src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
+        <Link to="/wishlist"><img className="mx-2" src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} /></Link>
         <img className="mx-2" src={cartIcon} alt="Cart" style={{ width: "18px", height: "18px" }} />
       </div>
     </nav>

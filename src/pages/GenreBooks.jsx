@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import useFetch from "../../useFetch";
 import FilterBar from "../components/FilterBar";
 import { useState } from "react";
@@ -74,6 +74,7 @@ export default function GenreBooks() {
           <div className="row">
             {filteredBooks.map((book) => (
               <div className="col-md-4 mb-4" key={book._id}>
+                    <Link to={`/books/${book._id}`} className="text-decoration-none text-dark">
                 <div className="card h-100">
                   <img
                     src={book.coverImageUrl}
@@ -90,6 +91,7 @@ export default function GenreBooks() {
                     Add to Cart
                   </button>
                 </div>
+                </Link>
               </div>
             ))}
             {!loading && filteredBooks.length === 0 && (
