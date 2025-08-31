@@ -1,12 +1,16 @@
-import { NavLink,Link,useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSearch } from "../context/SearchContext";
+import { useWishlist } from "../context/WishlistContext"; // ✅ import context
+import { useCart } from "../context/CartContext"; // ✅ assuming you have similar CartContext
 import searchIcon from "../assets/search.svg";
 import wishlistIcon from "../assets/wishlist.svg";
 import cartIcon from "../assets/cart.svg";
+import profileIcon from "../assets/profile.svg"
 
 export default function Nav() {
   const { searchBook, setSearchBook } = useSearch();
-
+  const { wishlist } = useWishlist(); // ✅ from context
+  const { cart } = useCart(); // ✅ from context
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -23,6 +27,8 @@ export default function Nav() {
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse">
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        {/* Search Bar */}
         <form
           className="d-flex mx-auto position-relative align-items-center"
           style={{ width: "30%" }}
@@ -48,13 +54,48 @@ export default function Nav() {
             value={searchBook}
             onChange={(e) => setSearchBook(e.target.value)}
           />
-        </form >
+        </form>
+
         <button className="btn btn-dark mx-2">Login</button>
-        <Link to="/wishlist"><img className="mx-2" src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} /></Link>
-        <img className="mx-2" src={cartIcon} alt="Cart" style={{ width: "18px", height: "18px" }} />
+
+        {/* Wishlist with count */}
+        <Link to="/wishlist" className="position-relative mx-2">
+          <img src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
+          {wishlist.length > 0 && (
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "10px" }}
+            >
+              {wishlist.length}
+            </span>
+          )}
+        </Link>
+
+        {/* Cart with count */}
+        <Link to="/cart" className="position-relative mx-2">
+          <img src={cartIcon} alt="Cart" style={{ width: "18px", height: "18px" }} />
+          {cart.length > 0 && (
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "10px" }}
+            >
+              {cart.length}
+            </span>
+          )}
+        </Link>
+         <Link to="/profile" className="position-relative mx-2">
+          <img src={profileIcon} alt="Profile" style={{ width: "18px", height: "18px" }} />
+
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "10px" }}
+            >
+
+            </span>
+
+        </Link>
       </div>
     </nav>
   );
 }
-
 
