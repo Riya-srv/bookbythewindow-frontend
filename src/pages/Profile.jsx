@@ -131,7 +131,6 @@ else {
           </button>
         </h4>
 
-        //address form
         {isAdding && (
           <form
             className="card rounded-3 p-3 mb-3"
@@ -194,7 +193,6 @@ else {
           </form>
         )}
 
-        //address cards
         <div className="row">
           {addresses.map((address) => (
             <div className="col-md-6 mb-3" key={address.id}>

@@ -70,7 +70,7 @@ export default function Wishlist() {
               <div className="card h-100 shadow-sm">
                 <div className="position-relative">
                   <img
-                    src={book.image}
+                    src={book.coverImageUrl}
                     className="card-img-top"
                     alt={book.title}
                     style={{ height: "250px", objectFit: "cover" }}

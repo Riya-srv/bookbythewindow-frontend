@@ -48,7 +48,7 @@ export const WishlistProvider = ({ children }) => {
             title: book.title,
             author: book.author,
             price: book.price,
-            image: book.coverImageUrl,
+            coverImageUrl: book.coverImageUrl,
           }),
         });
         if (res.ok) {

@@ -40,12 +40,15 @@ removeFromCart(book._id);
         <div className="col-md-8">
           {cart.map((item) => (
             <div key={item._id} className="card mb-3 p-3 d-flex flex-row align-items-center">
-              <img src={item.coverImageUrl} alt={item.title} width="120" />
+              <img src={item.coverImageUrl} alt={item.title} width="120"   
+              onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/images/book-placeholder.png";
+          }}/>
               <div className="ms-3">
                 <h5>{item.title}</h5>
                 <p>₹{item.price}</p>
 
-                //updates quantity of books
                 <div className="d-flex align-items-center">
                   <button
                     className="btn btn-outline-secondary btn-sm"
@@ -62,8 +65,6 @@ removeFromCart(book._id);
                     +
                   </button>
                 </div>
-
-                //Removes book from the cart
                 <div className="mt-2">
                   <button
                     className="btn btn-dark btn-sm me-2"
@@ -76,7 +77,6 @@ removeFromCart(book._id);
                     Remove
                   </button>
                   
-                  //Adds book to the Wishlist
                   <button className="btn btn-dark btn-sm" onClick={() => moveToWishlist(item)}>
                     Move to Wishlist
                   </button>
@@ -86,8 +86,6 @@ removeFromCart(book._id);
             </div>
           ))}
         </div>
-
-        //price card - Place Order
         <div className="col-md-4">
           <div className="card p-3">
             <h5>Price Details</h5>
