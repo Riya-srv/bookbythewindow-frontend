@@ -1,9 +1,14 @@
 import Nav from "../components/Nav"
 import { useParams } from "react-router-dom"
 import useFetch from "../../useFetch"
+import { useWishlist } from "../context/WishlistContext";
+import { useCart } from "../context/CartContext"
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function BookDetails(){
     const { bookId } = useParams();
+    const { addToCart, isInCart } = useCart();
+    const { toggleWishlist, isInWishlist } = useWishlist();
 
     const { data:bookData, loading, error } = useFetch(`https://bookbythewindow-backend-x2aq.vercel.app/api/book/${bookId}`)
 
@@ -44,7 +49,17 @@ export default function BookDetails(){
                 </div>
 
                 <div className="d-flex gap-3 mb-4 mt-4">
-                    <button className="btn btn-outline-dark btn-lg">ADD TO CART</button>
+                  <div>
+                    <button className="btn btn-outline-dark btn-lg"   onClick={() => {if (!isInCart(book._id)) 
+                    {
+                      addToCart(book); 
+                      notifyForCart();
+                    }
+                    }}>  {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                  </button>
+                  <ToastContainer position="bottom-right" autoClose={2000}/>
+                  </div>
+
                     <button className="btn btn-dark btn-lg">ADD TO WISHLIST</button>
                 </div>
                 <div className="mt-4">
