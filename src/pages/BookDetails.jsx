@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function BookDetails(){
     const notifyForCart = () => toast("Added to Cart!");
     const notifyForWishlist = () => toast("Added to Wishlist")
-    //const notifyForWishlistRemove = () => toast("Removed from Wishlist")
+    const notifyForWishlistRemove = () => toast("Removed from Wishlist")
 
     const { bookId } = useParams();
     const { addToCart, isInCart } = useCart();
@@ -67,10 +67,13 @@ export default function BookDetails(){
                     <button className="btn btn-dark btn-lg" onClick={() => 
                   {
                     toggleWishlist(book);
-                    notifyForWishlist();
+                      if (isInWishlist(book._id)) {
+                          notifyForWishlistRemove();
+                      } else {
+                          notifyForWishlist();
+                      }
 
-
-                  }}>{isInWishlist(book._id) ? "ADDED TO WISHLIST" : "ADD TO WISHLIST"}</button>
+                  }}>{isInWishlist(book._id) ? "REMOVE TO WISHLIST" : "ADD TO WISHLIST"}</button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                 </div>
                 </div>
