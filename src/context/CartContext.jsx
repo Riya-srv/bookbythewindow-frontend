@@ -15,13 +15,14 @@ export const CartProvider = ({ children }) => {
       })
       .catch((err) => console.error("Error fetching cart:", err));
   }, []);
+  
 
   // Add item to cart
   const addToCart = (book) => {
       const itemInCart = cart.find(item => item.bookId === book._id);
 
   if (itemInCart) {
-    updateQuantity(book._id, itemInCart.qty + 1);
+    updateQuantity(itemInCart._id, itemInCart.qty + 1);
   } else {
     fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart", {
       method: "POST",
