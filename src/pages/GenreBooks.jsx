@@ -32,7 +32,7 @@ export default function GenreBooks() {
 
   const { genreName } = useParams();
   const { data, loading, error } = useFetch(
-    `https://bookbythewindow-backend-tusv.vercel.app/api/books/genre/${genreName}`
+    `https://bookbythewindow-backend-x2aq.vercel.app/api/books/genre/${genreName}`
   );
   const books = data?.data?.books || [];
 

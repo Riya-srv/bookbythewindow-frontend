@@ -74,7 +74,7 @@ const orderPayload = {
   total: cartTotal,
 };
 
-const response = await fetch("https://bookbythewindow-backend-tusv.vercel.app/api/orders", {
+const response = await fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/orders", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(orderPayload),

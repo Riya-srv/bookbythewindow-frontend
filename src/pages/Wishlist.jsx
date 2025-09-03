@@ -15,7 +15,7 @@ export default function Wishlist() {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const res = await fetch("https://bookbythewindow-backend-tusv.vercel.app/api/wishlist");
+        const res = await fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist");
         const data = await res.json();
         setWishlist(data);
         localStorage.setItem("wishlist", JSON.stringify(data));
@@ -32,7 +32,7 @@ export default function Wishlist() {
 
   const removeFromWishlist = async (bookId) => {
     try {
-      await fetch(`https://bookbythewindow-backend-tusv.vercel.app/api/wishlist/${bookId}`, {
+      await fetch(`https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${bookId}`, {
         method: "DELETE",
       });
 
