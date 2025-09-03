@@ -18,6 +18,11 @@ export const CartProvider = ({ children }) => {
 
   // Add item to cart
   const addToCart = (book) => {
+      const itemInCart = cart.find(item => item.bookId === book._id);
+
+  if (itemInCart) {
+    updateQuantity(book._id, itemInCart.qty + 1);
+  } else {
     fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,6 +39,7 @@ export const CartProvider = ({ children }) => {
         setCart(data.cart || []); 
       })
       .catch((err) => console.error("Error adding to cart:", err));
+    }
   };
 
   // Update quantity

@@ -55,7 +55,7 @@ export default function BookDetails(){
                       addToCart(book); 
                       notifyForCart();
                     }
-                    }}>  {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                    }}>  {isInCart(book._id) ? "ADDED TO CART" : "ADD TO CART"}
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                   </div>
