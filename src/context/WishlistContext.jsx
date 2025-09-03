@@ -29,7 +29,7 @@ export const WishlistProvider = ({ children }) => {
         );
         if (res.ok) {
           setWishlist((prev) => {
-            const updated = prev.filter((i) => i._id !== existingItem._id);
+            const updated = prev.filter((i) => i.bookId !== existingItem._id);
             localStorage.setItem("wishlist", JSON.stringify(updated));
             return updated;
           });
