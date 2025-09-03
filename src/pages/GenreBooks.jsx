@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function GenreBooks() {
   const notifyForCart = () => toast("Added to Cart!");
   const notifyForWishlist = () => toast("Added to Wishlist")
+  const notifyForWishlistRemove = () => toast("Removed from Wishlist")
 
   const { searchBook } = useSearch(); // get search term from Search Context
   const { addToCart, isInCart } = useCart(); // get addToCart and isInCart from Cart Context
@@ -91,7 +92,11 @@ export default function GenreBooks() {
                  onClick={() => 
                   {
                     toggleWishlist(book);
-                    notifyForWishlist();
+                      if (isInWishlist(book._id)) {
+                          notifyForWishlistRemove();
+                      } else {
+                          notifyForWishlist();
+                      }
 
                   }}
               >
