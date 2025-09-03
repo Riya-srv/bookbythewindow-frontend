@@ -65,19 +65,26 @@ export const WishlistProvider = ({ children }) => {
     }
   };
 
-  const addToWishlist = (book) => {
-  setWishlist((prev) => {
-    const exists = prev.some((item) => item._id === book._id);
-    if (!exists) {
-      return [...prev, book];
-    }
-    return prev;
-  });
-};
+const addToWishlist = (book) => {
+    setWishlist((prev) => {
+      const exists = prev.some((item) => item.bookId === book._id);
+      if (!exists) {
+        const updated = [...prev, { ...book, bookId: book._id }];
+        localStorage.setItem("wishlist", JSON.stringify(updated));
+        return updated;
+      }
+      return prev;
+    });
+  };
 
-const removeFromWishlist = (id) => {
-  setWishlist((prev) => prev.filter((item) => item._id !== id));
-};
+  const removeFromWishlist = (bookId) => {
+    setWishlist((prev) => {
+      const updated = prev.filter((item) => item.bookId !== bookId);
+      localStorage.setItem("wishlist", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
 
   const isInWishlist = (id) =>
   wishlist.some((item) => item.bookId === id || item._id === id);
