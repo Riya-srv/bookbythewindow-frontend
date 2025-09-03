@@ -6,6 +6,10 @@ import { useCart } from "../context/CartContext"
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function BookDetails(){
+    const notifyForCart = () => toast("Added to Cart!");
+    const notifyForWishlist = () => toast("Added to Wishlist")
+    //const notifyForWishlistRemove = () => toast("Removed from Wishlist")
+
     const { bookId } = useParams();
     const { addToCart, isInCart } = useCart();
     const { toggleWishlist, isInWishlist } = useWishlist();
@@ -59,8 +63,16 @@ export default function BookDetails(){
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                   </div>
+                  <div>
+                    <button className="btn btn-dark btn-lg" onClick={() => 
+                  {
+                    toggleWishlist(book);
+                    notifyForWishlist();
 
-                    <button className="btn btn-dark btn-lg">ADD TO WISHLIST</button>
+
+                  }}>{isInWishlist(book._id) ? "ADDED TO WISHLIST" : "ADD TO WISHLIST"}</button>
+                  <ToastContainer position="bottom-right" autoClose={2000}/>
+                </div>
                 </div>
                 <div className="mt-4">
                     <h4>Description</h4>
