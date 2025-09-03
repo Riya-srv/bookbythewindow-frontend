@@ -9,7 +9,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/orders");
+        const response = await fetch("https://bookbythewindow-backend-tusv.vercel.app/api/orders");
         if (!response.ok) throw new Error("Failed to fetch orders");
         
         const data = await response.json();

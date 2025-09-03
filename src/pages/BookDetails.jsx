@@ -5,7 +5,7 @@ import useFetch from "../../useFetch"
 export default function BookDetails(){
     const { bookId } = useParams();
 
-    const { data:bookData, loading, error } = useFetch(`http://localhost:3000/api/book/${bookId}`)
+    const { data:bookData, loading, error } = useFetch(`https://bookbythewindow-backend-tusv.vercel.app/api/book/${bookId}`)
 
     const book = bookData?.data?.book;
 

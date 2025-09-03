@@ -11,7 +11,7 @@ export default function Home() {
     data: genresData,
     loading: genresLoading,
     error: genresError,
-  } = useFetch("http://localhost:3000/api/genres");
+  } = useFetch("https://bookbythewindow-backend-tusv.vercel.app/api/genres");
   const genres = genresData?.data?.genres || [];
 
   // Fetch all books
@@ -19,7 +19,7 @@ export default function Home() {
     data: booksData,
     loading: booksLoading,
     error: booksError,
-  } = useFetch("http://localhost:3000/api/books");
+  } = useFetch("https://bookbythewindow-backend-tusv.vercel.app/api/books");
   const books = booksData?.data?.books || [];
 
   // Filter books by search term

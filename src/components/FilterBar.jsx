@@ -5,7 +5,7 @@ export default function FilterBar({ genreName, selectedCategories, setSelectedCa
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/categories/genre/${genreName}`)
+    fetch(`https://bookbythewindow-backend-tusv.vercel.app/api/categories/genre/${genreName}`)
       .then((res) => res.json())
       .then((data) => {
         setCategories(data.data.categories || []);

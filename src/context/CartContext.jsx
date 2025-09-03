@@ -8,7 +8,7 @@ export const CartProvider = ({ children }) => {
 
   // Fetch cart on load
   useEffect(() => {
-    fetch("http://localhost:3000/api/cart")
+    fetch("https://bookbythewindow-backend-tusv.vercel.app/api/cart")
       .then((res) => res.json())
       .then((data) => {
         setCart(data.cart || []);
@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
 
   // Add item to cart
   const addToCart = (book) => {
-    fetch("http://localhost:3000/api/cart", {
+    fetch("https://bookbythewindow-backend-tusv.vercel.app/api/cart", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
 
   // Update quantity
   const updateQuantity = (id, qty) => {
-    fetch(`http://localhost:3000/api/cart/${id}`, {
+    fetch(`https://bookbythewindow-backend-tusv.vercel.app/api/cart/${id}`, {
       method: "POST", 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ qty }),
@@ -61,7 +61,7 @@ export const CartProvider = ({ children }) => {
   // Remove from cart
 const removeFromCart = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/cart/${id}`, {
+    const res = await fetch(`https://bookbythewindow-backend-tusv.vercel.app/api/cart/${id}`, {
       method: "DELETE",
     });
 

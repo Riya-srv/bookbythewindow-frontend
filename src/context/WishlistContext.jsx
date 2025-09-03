@@ -7,7 +7,7 @@ export const WishlistProvider = ({ children }) => {
 
   // Fetch wishlist on load
   useEffect(() => {
-    fetch("http://localhost:3000/api/wishlist")
+    fetch("https://bookbythewindow-backend-tusv.vercel.app/api/wishlist")
       .then((res) => res.json())
       .then((items) => {
         setWishlist(items || []);
@@ -24,7 +24,7 @@ export const WishlistProvider = ({ children }) => {
       // Remove from Wishlist
       try {
         const res = await fetch(
-          `http://localhost:3000/api/wishlist/${existingItem._id}`,
+          `https://bookbythewindow-backend-tusv.vercel.app/api/wishlist/${existingItem._id}`,
           { method: "DELETE" }
         );
         if (res.ok) {
@@ -40,7 +40,7 @@ export const WishlistProvider = ({ children }) => {
     } else {
       // Add to Wishlist
       try {
-        const res = await fetch("http://localhost:3000/api/wishlist", {
+        const res = await fetch("https://bookbythewindow-backend-tusv.vercel.app/api/wishlist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
