@@ -59,7 +59,7 @@ export default function BookDetails(){
                       addToCart(book); 
                       notifyForCart();
                     }
-                    }}>  {isInCart(book._id) ? "ADDED TO CART" : "ADD TO CART"}
+                    }}> ADD TO CART
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                   </div>
@@ -73,7 +73,7 @@ export default function BookDetails(){
                           notifyForWishlist();
                       }
 
-                  }}>{isInWishlist(book._id) ? "REMOVE TO WISHLIST" : "ADD TO WISHLIST"}</button>
+                  }}>{isInWishlist(book._id) ? "REMOVE FROM WISHLIST" : "ADD TO WISHLIST"}</button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                 </div>
                 </div>
