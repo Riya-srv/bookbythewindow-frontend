@@ -23,6 +23,7 @@ export default function Nav() {
   return (
     <nav className="navbar bg-warning">
       <div className="container py-2">
+        <div className="d-flex align-items-center ms-auto">
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
 
         {/* Search Bar */}
@@ -52,7 +53,7 @@ export default function Nav() {
             onChange={(e) => setSearchBook(e.target.value)}
           />
         </form>
-        <div className="d-flex align-items-center ms-auto">
+        
         <button className="btn btn-dark mx-2">Login</button>
 
         {/* Wishlist with count */}
