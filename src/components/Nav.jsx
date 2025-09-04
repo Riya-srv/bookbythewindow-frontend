@@ -1,7 +1,7 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSearch } from "../context/SearchContext";
-import { useWishlist } from "../context/WishlistContext"; // ✅ import context
-import { useCart } from "../context/CartContext"; // ✅ assuming you have similar CartContext
+import { useWishlist } from "../context/WishlistContext"; 
+import { useCart } from "../context/CartContext"; 
 import searchIcon from "../assets/search.svg";
 import wishlistIcon from "../assets/wishlist.svg";
 import cartIcon from "../assets/cart.svg";
@@ -9,8 +9,8 @@ import profileIcon from "../assets/profile.svg"
 
 export default function Nav() {
   const { searchBook, setSearchBook } = useSearch();
-  const { wishlist } = useWishlist(); // ✅ from context
-  const { cart } = useCart(); // ✅ from context
+  const { wishlist } = useWishlist(); 
+  const { cart } = useCart(); 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -24,9 +24,6 @@ export default function Nav() {
     <nav className="navbar navbar-expand-lg bg-warning">
       <div className="container py-2">
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse">
-          <span className="navbar-toggler-icon"></span>
-        </button>
 
         {/* Search Bar */}
         <form
