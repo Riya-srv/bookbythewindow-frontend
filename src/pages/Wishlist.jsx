@@ -6,7 +6,6 @@ import { useWishlist } from "../context/WishlistContext";
 
 export default function Wishlist() {
    const notifyForCart = () => toast("Added to Cart!");
-   const notifyForWishlist = () => toast("Removed from Wishlist")
    const notifyForWishlistRemove = () => toast("Removed from Wishlist")
 
   const [wishlist, setWishlist] = useState([]);
@@ -81,16 +80,14 @@ export default function Wishlist() {
                   <div
                     className="position-absolute top-0 end-0 p-2"
                     style={{ cursor: "pointer", fontSize: "1.5rem", color: "red" }}
-                    onClick={() => 
-                  {
-                    toggleWishlist(book);
+                    onClick={() => {
                       if (isInWishlist(book._id)) {
-                          notifyForWishlistRemove();
+                        toggleWishlist(book);
+                        notifyForWishlistRemove();
                       } else {
-                          notifyForWishlist();
+                        toggleWishlist(book);
                       }
-
-                  }}
+                    }}
                   >
                     {isInWishlist(book._id) ? <FaHeart style={{ color: "red" }}/> : <FaRegHeart style={{ color: "black" }}/>}
                   </div>
