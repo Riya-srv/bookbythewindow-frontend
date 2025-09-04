@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useCart } from "../context/CartContext"
-import { ToastContainer, toast } from 'react-toastify';
+import { FaHeart } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
 import { useWishlist } from "../context/WishlistContext";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Wishlist() {
-   const notifyForCart = () => toast("Added to Cart!");
-   const notifyForWishlistRemove = () => toast("Removed from Wishlist")
+  const notifyForCart = () => toast("Added to Cart!");
+  const notifyForWishlistRemove = () => toast("Removed from Wishlist");
 
-  const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart, isInCart } = useCart();
-  const { toggleWishlist, isInWishlist } = useWishlist();
-
+  const { wishlist, setWishlist } = useWishlist(); 
 
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const res = await fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist");
+        const res = await fetch(
+          "https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist"
+        );
         const data = await res.json();
-        setWishlist(data);
+        setWishlist(data); 
         localStorage.setItem("wishlist", JSON.stringify(data));
         window.dispatchEvent(new Event("wishlist:updated"));
       } catch (err) {
@@ -30,23 +31,25 @@ export default function Wishlist() {
     };
 
     fetchWishlist();
-  }, []);
+  }, [setWishlist]);
 
   const removeFromWishlist = async (bookId) => {
     try {
-      await fetch(`https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${bookId}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${bookId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       setWishlist((prev) => {
-       const updated = prev.filter((book) => book._id !== bookId)
-      localStorage.setItem("wishlist", JSON.stringify(updated));
+        const updated = prev.filter((book) => book._id !== bookId);
+        localStorage.setItem("wishlist", JSON.stringify(updated));
+        window.dispatchEvent(new Event("wishlist:updated"));
+        return updated;
+      });
 
-
-      window.dispatchEvent(new Event("wishlist:updated"));
-      return updated;
-    });
-
+      notifyForWishlistRemove();
     } catch (err) {
       console.error("Failed to remove book:", err);
     }
@@ -79,39 +82,34 @@ export default function Wishlist() {
                   />
                   <div
                     className="position-absolute top-0 end-0 p-2"
-                    style={{ cursor: "pointer", fontSize: "1.5rem", color: "red" }}
-                    onClick={() => {
-                      if (isInWishlist(book._id)) {
-                        toggleWishlist(book);
-                        notifyForWishlistRemove();
-                      } else {
-                        toggleWishlist(book);
-                      }
-                    }}
+                    style={{ cursor: "pointer", fontSize: "1.5rem" }}
+                    onClick={() => removeFromWishlist(book._id)}
                   >
-                    {isInWishlist(book._id) ? <FaHeart style={{ color: "red" }}/> : <FaRegHeart style={{ color: "black" }}/>}
+                    <FaHeart style={{ color: "red" }} />
                   </div>
-                  <ToastContainer position="bottom-right" />
                 </div>
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title">{book.title}</h5>
                   <p className="card-text text-muted">{book.author}</p>
                   <p className="fw-bold">₹{book.price}</p>
-                  <button className="btn btn-dark mt-auto"   onClick={() => {
-    if (!isInCart(book._id)) {
-      addToCart(book); 
-      notifyForCart();
-    }
-  }}>
-  {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                  <button
+                    className="btn btn-dark mt-auto"
+                    onClick={() => {
+                      if (!isInCart(book._id)) {
+                        addToCart(book);
+                        notifyForCart();
+                      }
+                    }}
+                  >
+                    {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
                   </button>
-                  <ToastContainer position="bottom-right" autoClose={2000}/>
                 </div>
               </div>
             </div>
           ))}
         </div>
       )}
+      <ToastContainer position="bottom-right" autoClose={2000} />
     </div>
   );
 }
