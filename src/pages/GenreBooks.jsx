@@ -130,7 +130,7 @@ export default function GenreBooks() {
                 </div>
             ))}
             {!loading && filteredBooks.length === 0 && (
-              <p>No books found for selected category.</p>
+              <p className="m-3 p-3">No books found for selected category.</p>
             )}
           </div>
         </div>
