@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useCart } from "../context/CartContext"
 import { ToastContainer, toast } from 'react-toastify';
+import { useWishlist } from "../context/WishlistContext";
 
 export default function Wishlist() {
    const notifyForCart = () => toast("Added to Cart!");
    const notifyForWishlist = () => toast("Removed from Wishlist")
+   const notifyForWishlistRemove = () => toast("Removed from Wishlist")
 
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart, isInCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
 
 
   useEffect(() => {
@@ -78,13 +81,18 @@ export default function Wishlist() {
                   <div
                     className="position-absolute top-0 end-0 p-2"
                     style={{ cursor: "pointer", fontSize: "1.5rem", color: "red" }}
-                    onClick={() => {
-                      removeFromWishlist(book._id)
-                      notifyForWishlist();
-                    }
-                    }
+                    onClick={() => 
+                  {
+                    toggleWishlist(book);
+                      if (isInWishlist(book._id)) {
+                          notifyForWishlistRemove();
+                      } else {
+                          notifyForWishlist();
+                      }
+
+                  }}
                   >
-                    <FaHeart />
+                    {isInWishlist(book._id) ? <FaHeart style={{ color: "red" }}/> : <FaRegHeart style={{ color: "black" }}/>}
                   </div>
                   <ToastContainer position="bottom-right" />
                 </div>
