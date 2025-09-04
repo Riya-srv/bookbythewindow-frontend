@@ -23,12 +23,12 @@ export default function Nav() {
   return (
     <nav className="navbar bg-warning">
       <div className="container py-2">
-        
+        <div className="d-flex w-100 align-items-center justify-content-between ms-auto">
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
 
         {/* Search Bar */}
         <form
-          className="d-flex mx-auto position-relative align-items-center"
+          className="d-flex position-relative flex-grow-1 mx-2"
           style={{ width: "400px" }}
           onSubmit={handleSubmit}
         >
@@ -53,7 +53,7 @@ export default function Nav() {
             onChange={(e) => setSearchBook(e.target.value)}
           />
         </form>
-        <div className="d-flex align-items-center ms-auto">
+        <div className="d-flex align-items-center" style={{ gap: "12px" }}>
         <button className="btn btn-dark mx-2">Login</button>
 
         {/* Wishlist with count */}
@@ -92,6 +92,7 @@ export default function Nav() {
             </span>
 
         </Link>
+        </div>
         </div>
       </div>
     </nav>
