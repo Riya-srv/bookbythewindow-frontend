@@ -15,30 +15,8 @@ export const CartProvider = ({ children }) => {
       })
       .catch((err) => console.error("Error fetching cart:", err));
   }, []);
-  
 
-  // Add item to cart
-  const addToCart = (book) => {
-    fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart", 
-      {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        bookId: book._id,
-        title: book.title,
-        price: book.price,
-        qty: book.qty,
-        coverImageUrl: book.coverImageUrl,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCart(data.cart || []); 
-      })
-      .catch((err) => console.error("Error adding to cart:", err));
-  };
-
-  // Update quantity
+    // Update quantity
   const updateQuantity = (id, qty) => {
     fetch(`https://bookbythewindow-backend-x2aq.vercel.app/api/cart/${id}`, {
       method: "POST", 
@@ -59,6 +37,36 @@ export const CartProvider = ({ children }) => {
       }})
       .catch((err) => console.error("Error updating quantity:", err));
   };
+  
+
+  // Add item to cart
+  const addToCart = (book) => {
+      const existingItem = cart.find((item) => item._id === book._id);
+  if (existingItem) {
+    // Increment qty by 1 using updateQuantity (reuse your logic)
+    updateQuantity(book._id, existingItem.qty + 1);
+  } else{
+    fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart", 
+      {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        bookId: book._id,
+        title: book.title,
+        price: book.price,
+        qty: book.qty,
+        coverImageUrl: book.coverImageUrl,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCart(data.cart || []); 
+      })
+      .catch((err) => console.error("Error adding to cart:", err));
+    }
+  };
+
+
 
   // Remove from cart
 const removeFromCart = async (id) => {
