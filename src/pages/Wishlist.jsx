@@ -36,7 +36,7 @@ export default function Wishlist() {
   const removeFromWishlist = async (bookId) => {
     try {
       await fetch(
-        https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${bookId},
+        `https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${bookId}`,
         {
           method: "DELETE",
         }
@@ -94,18 +94,18 @@ export default function Wishlist() {
                   <p className="fw-bold">₹{book.price}</p>
                   <button
                     className="btn btn-dark mt-auto"
-                    onClick={() => {if (!isInCart(book._id)) 
+                    onClick={() => {if (!isInCart(book.bookId)) 
                     {
                       addToCart(book); 
                       notifyForCart();
                     } else
                       {
-                          const cartItem = cart.find((item) => item.bookId == book._id);
+                          const cartItem = cart.find((item) => item.bookId == book.bookId);
                           const currentQty = cartItem ? cartItem.qty : 1;
                           updateQuantity(cartItem._id, currentQty + 1);
                           notifyForCart();
                     }}}>
-                    {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                    {isInCart(book.bookId) ? "Added to Cart" : "Add to Cart"}
                   </button>
                 </div>
               </div>
@@ -115,5 +115,4 @@ export default function Wishlist() {
       )}
       <ToastContainer position="bottom-right" autoClose={2000} />
     </div>
-  );
-}
+  )}
