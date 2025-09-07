@@ -44,10 +44,10 @@ export const CartProvider = ({ children }) => {
 
   // Add item to cart
   const addToCart = (book) => {
-      const existingItem = cart.find((item) => item._id === book._id);
+      const existingItem = cart.find((item) => item.bookId === book._id);
   if (existingItem) {
     // Increment qty by 1 using updateQuantity (reuse your logic)
-    updateQuantity(book._id, existingItem.qty + 1);
+    updateQuantity(existingItem._id, existingItem.qty + 1);
   } else{
     fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart", 
       {
@@ -87,7 +87,7 @@ const removeFromCart = async (id) => {
 };
 
 // to check if book is already in Cart
-const isInCart = (bookId) => cart.some((item) => item._id === bookId);
+const isInCart = (bookId) => cart.some((item) => item.bookId === bookId);
 
 const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
