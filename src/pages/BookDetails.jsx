@@ -62,7 +62,7 @@ export default function BookDetails(){
                       {
                           const cartItem = cart.find((item) => item.bookId == book._id);
                           const currentQty = cartItem ? cartItem.qty : 1;
-                          updateQuantity(book._id, currentQty + 1);
+                          updateQuantity(cartItem._id, currentQty + 1);
                           notifyForCart();
                     }
                     }}> ADD TO CART
