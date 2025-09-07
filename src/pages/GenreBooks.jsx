@@ -16,7 +16,7 @@ export default function GenreBooks() {
   const notifyForWishlistRemove = () => toast("Removed from Wishlist")
 
   const { searchBook } = useSearch(); // get search term from Search Context
-  const { addToCart, isInCart } = useCart(); // get addToCart and isInCart from Cart Context
+  const { addToCart, isInCart, updateQuantity, cart } = useCart(); // get addToCart and isInCart from Cart Context
   const { wishlist, toggleWishlist, isInWishlist } = useWishlist();
   const [minRating, setMinRating] = useState("");
   const [maxPrice, setMaxPrice] = useState(500);
@@ -116,13 +116,18 @@ export default function GenreBooks() {
                   </div>
                   <h6 className="text-center">₹{book.price}</h6>
                   <button className="btn btn-warning btn-sm w-100 mx-auto"
-  onClick={() => {
-    if (!isInCart(book._id)) {
-      addToCart(book); 
-      notifyForCart();
-    }
-  }}>
-  {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                  onClick={() => {if (!isInCart(book._id)) 
+                    {
+                      addToCart(book); 
+                      notifyForCart();
+                    } else
+                      {
+                          const cartItem = cart.find((item) => item.bookId == book._id);
+                          const currentQty = cartItem ? cartItem.qty : 1;
+                          updateQuantity(cartItem._id, currentQty + 1);
+                          notifyForCart();
+                    }}}>
+                  {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                 </div>

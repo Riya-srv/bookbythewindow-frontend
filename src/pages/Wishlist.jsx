@@ -10,7 +10,7 @@ export default function Wishlist() {
   const notifyForWishlistRemove = () => toast("Removed from Wishlist");
 
   const [loading, setLoading] = useState(true);
-  const { addToCart, isInCart } = useCart();
+  const { addToCart, isInCart, updateQuantity, cart } = useCart();
   const { wishlist, setWishlist } = useWishlist(); 
 
   useEffect(() => {
@@ -94,13 +94,17 @@ export default function Wishlist() {
                   <p className="fw-bold">₹{book.price}</p>
                   <button
                     className="btn btn-dark mt-auto"
-                    onClick={() => {
-                      if (!isInCart(book._id)) {
-                        addToCart(book);
-                        notifyForCart();
-                      }
-                    }}
-                  >
+                    onClick={() => {if (!isInCart(book._id)) 
+                    {
+                      addToCart(book); 
+                      notifyForCart();
+                    } else
+                      {
+                          const cartItem = cart.find((item) => item.bookId == book._id);
+                          const currentQty = cartItem ? cartItem.qty : 1;
+                          updateQuantity(cartItem._id, currentQty + 1);
+                          notifyForCart();
+                    }}}>
                     {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
                   </button>
                 </div>

@@ -65,7 +65,7 @@ export default function BookDetails(){
                           updateQuantity(cartItem._id, currentQty + 1);
                           notifyForCart();
                     }
-                    }}> ADD TO CART
+                    }}> {isInCart(book._id) ? "ADDED TO CART" : "ADD TO CART"}
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
                   </div>
