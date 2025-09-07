@@ -31,13 +31,15 @@ export const CartProvider = ({ children }) => {
             item._id === id ? { ...item, qty: data.updatedItem.qty } : item
           )
         );
-        console.log(cart)
       } else if (data.cart) {
         // If backend returns full cart
         setCart(data.cart);
       }})
       .catch((err) => console.error("Error updating quantity:", err));
   };
+  useEffect(() => {
+  console.log("Cart updated:", cart);
+}, [cart]);
   
 
   // Add item to cart
@@ -55,7 +57,7 @@ export const CartProvider = ({ children }) => {
         bookId: book._id,
         title: book.title,
         price: book.price,
-        qty: book.qty,
+        qty: 1,
         coverImageUrl: book.coverImageUrl,
       }),
     })
@@ -85,7 +87,7 @@ const removeFromCart = async (id) => {
 };
 
 // to check if book is already in Cart
-const isInCart = (bookId) => cart.some((item) => item.bookId === bookId);
+const isInCart = (bookId) => cart.some((item) => item._id === bookId);
 
 const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
