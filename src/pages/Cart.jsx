@@ -67,7 +67,7 @@ removeFromCart(book._id);
                 </div>
                 <div className="mt-2">
                   <button
-                    className="btn btn-dark btn-sm me-2 my-2"
+                    className="btn btn-dark btn-sm me-2 py-2"
                     onClick={() =>{ 
                       removeFromCart(item._id);
                       notifyForCart();
@@ -77,7 +77,7 @@ removeFromCart(book._id);
                     Remove
                   </button>
                   
-                  <button className="btn btn-dark btn-sm my-2" onClick={() => moveToWishlist(item)}>
+                  <button className="btn btn-dark btn-sm py-2" onClick={() => moveToWishlist(item)}>
                     Move to Wishlist
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
