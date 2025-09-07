@@ -33,17 +33,17 @@ export default function Wishlist() {
     fetchWishlist();
   }, [setWishlist]);
 
-  const removeFromWishlist = async (bookId) => {
+  const removeFromWishlist = async (wishlistItemId) => {
     try {
       await fetch(
-        `https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${bookId}`,
+        `https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist/${wishlistItemId}`,
         {
           method: "DELETE",
         }
       );
 
       setWishlist((prev) => {
-        const updated = prev.filter((book) => book._id !== bookId);
+        const updated = prev.filter((item) => item._id !== wishlistItemId);
         localStorage.setItem("wishlist", JSON.stringify(updated));
         window.dispatchEvent(new Event("wishlist:updated"));
         return updated;
@@ -70,50 +70,59 @@ export default function Wishlist() {
         <p>Your wishlist is empty.</p>
       ) : (
         <div className="row g-4">
-          {wishlist.map((book) => (
-            <div key={book._id} className="col-md-3">
-              <div className="card h-100 shadow-sm">
-                <div className="position-relative">
-                  <img
-                    src={book.coverImageUrl}
-                    className="card-img-top"
-                    alt={book.title}
-                    style={{ height: "250px", objectFit: "cover" }}
-                  />
-                  <div
-                    className="position-absolute top-0 end-0 p-2"
-                    style={{ cursor: "pointer", fontSize: "1.5rem" }}
-                    onClick={() => removeFromWishlist(book._id)}
-                  >
-                    <FaHeart style={{ color: "red" }} />
+          {wishlist.map((item) => {
+            const book = item.bookId || item; // ✅ ensure we use actual book object
+
+            return (
+              <div key={item._id} className="col-md-3">
+                <div className="card h-100 shadow-sm">
+                  <div className="position-relative">
+                    <img
+                      src={book.coverImageUrl}
+                      className="card-img-top"
+                      alt={book.title}
+                      style={{ height: "250px", objectFit: "cover" }}
+                    />
+                    <div
+                      className="position-absolute top-0 end-0 p-2"
+                      style={{ cursor: "pointer", fontSize: "1.5rem" }}
+                      onClick={() => removeFromWishlist(item._id)} // ✅ use wishlist item id
+                    >
+                      <FaHeart style={{ color: "red" }} />
+                    </div>
+                  </div>
+                  <div className="card-body d-flex flex-column">
+                    <h5 className="card-title">{book.title}</h5>
+                    <p className="card-text text-muted">{book.author}</p>
+                    <p className="fw-bold">₹{book.price}</p>
+                    <button
+                      className="btn btn-dark mt-auto"
+                      onClick={() => {
+                        if (!isInCart(book._id)) {
+                          addToCart(book);
+                          notifyForCart();
+                        } else {
+                          const cartItem = cart.find(
+                            (c) => c.bookId === book._id
+                          );
+                          if (cartItem) {
+                            updateQuantity(cartItem._id, cartItem.qty + 1);
+                            notifyForCart();
+                          }
+                        }
+                      }}
+                    >
+                      {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                    </button>
                   </div>
                 </div>
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{book.title}</h5>
-                  <p className="card-text text-muted">{book.author}</p>
-                  <p className="fw-bold">₹{book.price}</p>
-                  <button
-                    className="btn btn-dark mt-auto"
-                    onClick={() => {if (!isInCart(book._id)) 
-                    {
-                      addToCart(book); 
-                      notifyForCart();
-                    } else
-                      {
-                          const cartItem = cart.find((item) => item.bookId == book._id);
-                          const currentQty = cartItem ? cartItem.qty : 1;
-                          updateQuantity(cartItem._id, currentQty + 1);
-                          notifyForCart();
-                    }}}>
-                    {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
-                  </button>
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
       <ToastContainer position="bottom-right" autoClose={2000} />
     </div>
   );
 }
+
