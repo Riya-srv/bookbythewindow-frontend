@@ -31,6 +31,7 @@ export const CartProvider = ({ children }) => {
             item._id === id ? { ...item, qty: data.updatedItem.qty } : item
           )
         );
+        console.log(cart)
       } else if (data.cart) {
         // If backend returns full cart
         setCart(data.cart);
