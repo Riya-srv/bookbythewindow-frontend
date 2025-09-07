@@ -11,7 +11,7 @@ export default function BookDetails(){
     const notifyForWishlistRemove = () => toast("Removed from Wishlist")
 
     const { bookId } = useParams();
-    const { addToCart, isInCart, updateQuantity } = useCart();
+    const { addToCart, isInCart, updateQuantity, cart } = useCart();
     const { toggleWishlist, isInWishlist } = useWishlist();
 
     const { data:bookData, loading, error } = useFetch(`https://bookbythewindow-backend-x2aq.vercel.app/api/book/${bookId}`)
@@ -58,7 +58,8 @@ export default function BookDetails(){
                     {
                       addToCart(book); 
                       notifyForCart();
-                    } else{
+                    } else
+                      {
                           const cartItem = cart.find((item) => item._id == book._id);
                           const currentQty = cartItem ? cartItem.qty : 1;
                           updateQuantity(book._id, currentQty + 1);
