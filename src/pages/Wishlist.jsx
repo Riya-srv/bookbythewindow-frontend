@@ -31,7 +31,7 @@ export default function Wishlist() {
     };
 
     fetchWishlist();
-  }, []);
+  }, [setWishlist]);
 
   const removeFromWishlist = async (bookId) => {
     try {
@@ -93,28 +93,20 @@ export default function Wishlist() {
                   <p className="card-text text-muted">{book.author}</p>
                   <p className="fw-bold">₹{book.price}</p>
                   <button
-  className="btn btn-dark mt-auto"
-  onClick={() => {
-    // Ensure consistent book shape for Cart
-    const cartBook = {
-      ...book,
-      bookId: book.bookId || book._id, // always use bookId
-      // Copy other properties as needed
-    };
-    if (!isInCart(cartBook.bookId)) {
-      addToCart(cartBook);
-      notifyForCart();
-    } else {
-      const cartItem = cart.find((item) => item.bookId === cartBook.bookId);
-      const currentQty = cartItem ? cartItem.qty : 1;
-      updateQuantity(cartItem._id, currentQty + 1);
-      notifyForCart();
-    }
-  }}
->
-  {isInCart(book.bookId || book._id) ? "Added to Cart" : "Add to Cart"}
-</button>
-
+                    className="btn btn-dark mt-auto"
+                    onClick={() => {if (!isInCart(book._id)) 
+                    {
+                      addToCart(book); 
+                      notifyForCart();
+                    } else
+                      {
+                          const cartItem = cart.find((item) => item.bookId == book._id);
+                          const currentQty = cartItem ? cartItem.qty : 1;
+                          updateQuantity(cartItem._id, currentQty + 1);
+                          notifyForCart();
+                    }}}>
+                    {isInCart(book._id) ? "Added to Cart" : "Add to Cart"}
+                  </button>
                 </div>
               </div>
             </div>
@@ -123,4 +115,5 @@ export default function Wishlist() {
       )}
       <ToastContainer position="bottom-right" autoClose={2000} />
     </div>
-  )}
+  );
+}
