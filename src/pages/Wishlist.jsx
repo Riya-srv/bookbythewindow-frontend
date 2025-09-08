@@ -31,7 +31,7 @@ export default function Wishlist() {
     };
 
     fetchWishlist();
-  }, [setWishlist]);
+  }, []);
 
   const removeFromWishlist = async (bookId) => {
     try {
