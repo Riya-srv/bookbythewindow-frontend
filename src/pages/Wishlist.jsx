@@ -102,7 +102,7 @@ export default function Wishlist() {
                       {
                           const cartItem = cart.find((item) => item.bookId === book.bookId);
                           const currentQty = cartItem ? cartItem.qty : 1;
-                          updateQuantity(cartItem._id, currentQty + 1);
+                          updateQuantity(cartItem.bookId, currentQty + 1);
                           notifyForCart();
                     }}}>
                     {isInCart(book.bookId) ? "Added to Cart" : "Add to Cart"}
