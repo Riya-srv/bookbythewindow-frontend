@@ -13,6 +13,8 @@ export default function Wishlist() {
   const { addToCart, isInCart, updateQuantity, cart } = useCart();
   const { wishlist, setWishlist } = useWishlist(); 
 
+  const getBookId = (book) => book.bookId || book._id;
+
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
@@ -20,8 +22,14 @@ export default function Wishlist() {
           "https://bookbythewindow-backend-x2aq.vercel.app/api/wishlist"
         );
         const data = await res.json();
-        setWishlist(data); 
-        localStorage.setItem("wishlist", JSON.stringify(data));
+
+                const normalized = data.map((book) => ({
+          ...book,
+          bookId: getBookId(book),
+        }));
+
+        setWishlist(normalized);
+        localStorage.setItem("wishlist", JSON.stringify(normalized));
         window.dispatchEvent(new Event("wishlist:updated"));
       } catch (err) {
         console.error("Error fetching wishlist:", err);
@@ -43,7 +51,7 @@ export default function Wishlist() {
       );
 
       setWishlist((prev) => {
-        const updated = prev.filter((book) => book._id !== bookId);
+        const updated = prev.filter((book) => getBookId(book) !== bookId);
         localStorage.setItem("wishlist", JSON.stringify(updated));
         window.dispatchEvent(new Event("wishlist:updated"));
         return updated;
