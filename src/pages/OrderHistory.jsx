@@ -13,7 +13,14 @@ const OrderHistory = () => {
         if (!response.ok) throw new Error("Failed to fetch orders");
         
         const data = await response.json();
-        setOrders(data.orders || []); // { orders } from backend
+
+      const savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+      const savedNames = savedAddresses.map(addr => addr.name);
+      const filteredOrders = data.orders.filter(order =>
+        savedNames.includes(order.userName)
+      );
+
+        setOrders(filteredOrders); // { orders } from backend
       } catch (err) {
         setError(err.message);
       } finally {
