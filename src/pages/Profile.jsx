@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom"
 import profileIcon from "../assets/profile.svg";
 import { useCart } from "../context/CartContext";
@@ -17,7 +17,14 @@ export default function Profile() {
     joined: "January 2024",
   };
 
-  const [addresses, setAddresses] = useState([{ id: 1, label: "Home", name: "Riya Srivastava", phone: "7434960809", details: "13, JP Nagar, Blr"}]);
+  //const [addresses, setAddresses] = useState([{ id: 1, label: "Home", name: "Riya Srivastava", phone: "7434960809", details: "13, JP Nagar, Blr"}]);
+
+  const [addresses, setAddresses] = useState(() => {
+    const saved = localStorage.getItem("addresses");
+    return saved
+      ? JSON.parse(saved)
+      : [{ id: 1, label: "Home", name: "Riya Srivastava", phone: "7434960809", details: "13, JP Nagar, Blr" }];
+  });
 
   const [newAddress, setNewAddress] = useState({ label: "", name: "", phone: "", details: "" });
   const [isAdding, setIsAdding] = useState(false);
@@ -26,6 +33,9 @@ export default function Profile() {
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ label: "", name: "", phone: "", details: "" });
 
+  useEffect(() => {
+    localStorage.setItem("addresses", JSON.stringify(addresses));
+  }, [addresses]);
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
