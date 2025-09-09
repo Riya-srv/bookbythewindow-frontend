@@ -14,10 +14,10 @@ const OrderHistory = () => {
         
         const data = await response.json();
 
-      const savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
-      const savedNames = savedAddresses.map(addr => addr.name);
+      const selectedUser = JSON.parse(localStorage.getItem("selectedUser"));
+
       const filteredOrders = data.orders.filter(order =>
-        savedNames.includes(order.userName)
+        order.userName === selectedUser
       );
 
         setOrders(filteredOrders); // { orders } from backend

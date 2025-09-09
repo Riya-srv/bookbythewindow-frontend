@@ -211,7 +211,11 @@ else {
                   type="radio"
                   name="selectedAddress"
                   checked={selectedAddress === address.id}
-                  onChange={() => setSelectedAddress(address.id)}
+                  onChange={() =>{ setSelectedAddress(address.id);
+                    localStorage.setItem("selectedUser", JSON.stringify(address.name)); 
+                    }
+                  }
+                  
                   required
                 />
                 <div className="flex-grow-1">
