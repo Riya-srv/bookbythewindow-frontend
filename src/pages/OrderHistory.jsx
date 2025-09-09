@@ -16,9 +16,13 @@ const OrderHistory = () => {
 
       const selectedUser = JSON.parse(localStorage.getItem("selectedUser"));
 
-      const filteredOrders = data.orders.filter(order =>
-        order.userName === selectedUser
-      );
+      let filteredOrders = data.orders
+
+       if (selectedUser?.name) {
+        filteredOrders = data.orders.filter(order =>
+          order.address.includes(selectedUser.name) 
+        );
+      }
 
         setOrders(filteredOrders); // { orders } from backend
       } catch (err) {
