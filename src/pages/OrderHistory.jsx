@@ -41,7 +41,7 @@ const OrderHistory = () => {
         <div className="text-center mt-5">
           <p className="fs-5">No order found. Please place an order first.</p>
           <Link to="/wishlist">
-            <button className="btn btn-primary mt-3">Add Books from Wishlist</button>
+            <button className="btn btn-dark mt-3">Add Books from Wishlist</button>
           </Link>
         </div>
       ) : (
