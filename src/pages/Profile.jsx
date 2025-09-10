@@ -104,6 +104,14 @@ const orderPayload = {
   }
 };
 
+const handleViewHistory = () => {
+  if (!selectedAddress) {
+    alert("Please select a user/address before viewing order history.");
+    return;
+  }
+  navigate("/order-history");
+};
+
   return (
     <div className="container my-5">
       <div className="d-flex flex-column align-items-center text-center mb-4">
@@ -305,10 +313,11 @@ const orderPayload = {
           onClick={handleCheckout} >
           Checkout
         </button>
-        <Link to="/order-history">        <button
-          className="btn btn-dark px-4 mx-2 rounded-3 shadow-sm">
+        <button
+          className="btn btn-dark px-4 mx-2 rounded-3 shadow-sm"
+          onClick={handleViewHistory}>
           View Order History
-        </button></Link>
+        </button>
       </div>
     </div>
   );
