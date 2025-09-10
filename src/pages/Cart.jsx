@@ -1,12 +1,13 @@
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { ToastContainer, toast } from 'react-toastify';
-import { Link } from "react-router-dom"
+import { useNavigate,Link } from "react-router-dom"
 
 const Cart = () => {
   const notifyForCart = () => toast("Removed from Cart!");
   const { cart, removeFromCart, updateQuantity, setCart, setOrder } = useCart();
   const { toggleWishlist, isInWishlist, addToWishlist } = useWishlist();
+  const navigate = useNavigate();
 
 const moveToWishlist = async (book) => {
 if (!isInWishlist(book._id) && !isInWishlist(book.bookId)) {
@@ -34,7 +35,7 @@ removeFromCart(book._id);
 
     setOrder(orderData);
     localStorage.setItem("lastOrder", JSON.stringify(orderData));
-
+    setCart([]);
     navigate("/order-summary");
   };
 
