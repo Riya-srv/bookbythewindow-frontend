@@ -47,9 +47,9 @@ const OrderHistory = () => {
       ) : (
         <div className="list-group">
           {orders.map((order) => (
-            <div key={order._id} className="list-group-item mb-3 rounded">
+            <div key={order.id} className="list-group-item mb-3 rounded">
               <div className="d-flex justify-content-between">
-                <h5>Order ID: {order._id}</h5>
+                <h5>Order ID: {order.id}</h5>
                 <span className=" m-2 p-2 btn btn-success">Completed</span>
               </div>
               <p className="mb-1 text-muted">

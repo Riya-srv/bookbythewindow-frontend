@@ -204,7 +204,7 @@ const orderPayload = {
                   name="selectedAddress"
                   checked={selectedAddress === address.id}
                   onChange={() =>{ setSelectedAddress(address.id);
-                    localStorage.setItem("selectedUser", JSON.stringify(address.name)); 
+                    localStorage.setItem("selectedUser", JSON.stringify(address)); 
                     }
                   }
                   
