@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function OrderSummary() {
-  const { order, cartTotal } = useCart();
+  const { order } = useCart();
   const [savedOrder, setSavedOrder] = useState(null);
 
     useEffect(() => {
