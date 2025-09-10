@@ -7,29 +7,23 @@ const OrderHistory = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/orders");
-        if (!response.ok) throw new Error("Failed to fetch orders");
-        
-        const data = await response.json();
+    const fetchOrders = () => {
+      setLoading(true);
 
+      // Get selected user from localStorage
       const selectedUser = JSON.parse(localStorage.getItem("selectedUser"));
+      const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
 
-      let filteredOrders = data.orders
+      let filteredOrders = allOrders;
 
-       if (selectedUser?.name) {
-        filteredOrders = data.orders.filter(order =>
-          order.address.includes(selectedUser.name) 
+      if (selectedUser?.name) {
+        filteredOrders = allOrders.filter(
+          (order) => order.userName === selectedUser.name
         );
       }
 
-        setOrders(filteredOrders); // { orders } from backend
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+      setOrders(filteredOrders);
+      setLoading(false);
     };
 
     fetchOrders();

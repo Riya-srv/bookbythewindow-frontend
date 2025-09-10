@@ -73,6 +73,10 @@ export default function Profile() {
 const chosenAddress = addresses.find((a) => a.id === selectedAddress);
 
 const orderPayload = {
+  id: Date.now(),
+  userName: chosenAddress.name,
+  date: new Date(),
+  total: cartTotal,
   books: cart.map(item => ({
     bookId: item._id,
     title: item.title,
@@ -84,27 +88,15 @@ const orderPayload = {
   total: cartTotal,
 };
 
-const response = await fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/orders", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(orderPayload),
-});
+    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    const updatedOrders = [...existingOrders, orderPayload];
+    localStorage.setItem("orders", JSON.stringify(updatedOrders));
+    localStorage.setItem("selectedUser", JSON.stringify(chosenAddress));
+    
 
-const data = await response.json();
-
-    console.log("Parsed Response Data:", data);
-
-if (response.ok)         
-  {
-    setOrder(data.order);
-    localStorage.setItem("lastOrder", JSON.stringify(data.order));
     setCart([]);
     navigate("/order-summary");
-    
-  }
-else {
-      alert(data.error || "Something went wrong!");
-    }
+
   } catch (err) {
     console.error(err);
     alert("Failed to place order.");
