@@ -24,20 +24,7 @@ removeFromCart(book._id);
   const delivery = 100;
   const finalAmount = totalPrice + delivery;
 
-    const handlePlaceOrder = () => {
-    const orderData = {
-      books: cart,
-      total: totalPrice,
-      delivery,
-      finalAmount,
-      date: new Date().toISOString(),
-    };
 
-    setOrder(orderData);
-    localStorage.setItem("lastOrder", JSON.stringify(orderData));
-    setCart([]);
-    navigate("/order-summary");
-  };
 
   return (
     <div className="container mt-4">
@@ -110,7 +97,7 @@ removeFromCart(book._id);
             <p>Delivery Charges: ₹{delivery}</p>
             <hr />
             <h5>Total Amount: ₹{finalAmount}</h5>
-            <button className="btn btn-success w-100" onClick={handlePlaceOrder}>Place Order</button>
+            <Link to="/profile"><button className="btn btn-success w-100">Place Order</button></Link>
           </div>
         </div>
       </div>

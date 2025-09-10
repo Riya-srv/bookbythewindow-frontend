@@ -91,6 +91,7 @@ const orderPayload = {
     const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
     const updatedOrders = [...existingOrders, orderPayload];
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
+    localStorage.setItem("lastOrder", JSON.stringify(orderPayload));
     localStorage.setItem("selectedUser", JSON.stringify(chosenAddress));
     
 
