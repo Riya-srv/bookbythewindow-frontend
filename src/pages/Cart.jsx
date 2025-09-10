@@ -35,8 +35,6 @@ removeFromCart(book._id);
     setOrder(orderData);
     localStorage.setItem("lastOrder", JSON.stringify(orderData));
 
-    setCart([]);
-
     navigate("/order-summary");
   };
 
