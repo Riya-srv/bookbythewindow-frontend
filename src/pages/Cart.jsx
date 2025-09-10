@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const Cart = () => {
   const notifyForCart = () => toast("Removed from Cart!");
-  const { cart, removeFromCart, updateQuantity, setCart } = useCart();
+  const { cart, removeFromCart, updateQuantity, setCart, setOrder } = useCart();
   const { toggleWishlist, isInWishlist, addToWishlist } = useWishlist();
 
 const moveToWishlist = async (book) => {
