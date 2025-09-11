@@ -18,7 +18,7 @@ export const WishlistProvider = ({ children }) => {
 
   // Toggle add/remove wishlist
   const toggleWishlist = async (book) => {
-    const existingItem = wishlist.find((item) => item.bookId === book._id);
+    const existingItem = wishlist.find((item) => item.bookId === book._id || item._id === book._id);
 
     if (existingItem) {
       // Remove from Wishlist
