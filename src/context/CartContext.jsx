@@ -6,15 +6,25 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [order, setOrder] = useState(null);
 
-  // Fetch cart on load
-  useEffect(() => {
+    useEffect(() => {
+    const stored = localStorage.getItem("cart");
+    if (stored) {
+      setCart(JSON.parse(stored));
+    }
+
     fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart")
       .then((res) => res.json())
       .then((data) => {
         setCart(data.cart || []);
+        localStorage.setItem("cart", JSON.stringify(data.cart));
       })
       .catch((err) => console.error("Error fetching cart:", err));
   }, []);
+
+    useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log("Cart updated:", cart);
+  }, [cart]);
 
     // Update quantity
   const updateQuantity = (id, qty) => {
@@ -63,7 +73,7 @@ export const CartProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setCart(data.cart || []); 
+        setCart(data.cart); 
       })
       .catch((err) => console.error("Error adding to cart:", err));
     }
