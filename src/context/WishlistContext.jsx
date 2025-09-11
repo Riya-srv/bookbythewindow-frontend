@@ -3,7 +3,15 @@ import { createContext, useContext, useState, useEffect } from "react";
 export const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState([]);
+  const [wishlist, setWishlist] = useState(() => {
+    const stored = localStorage.getItem("wishlist");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // Sync wishlist to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
   // Fetch wishlist on load
   useEffect(() => {
@@ -71,7 +79,7 @@ export const WishlistProvider = ({ children }) => {
   // wishlist.some((item) => item.bookId === id || item._id === id);
 
   const isInWishlist = (id) =>
-  wishlist.some((item) => item.bookId === id);
+  wishlist.some((item) => item.bookId === id || item._id === id);
 
   return (
     <WishlistContext.Provider
