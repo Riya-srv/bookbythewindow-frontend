@@ -21,14 +21,15 @@ export default function Nav() {
   };
 
   return (
-    <nav className="navbar bg-warning">
+    <nav className="navbar navbar-expand-md bg-warning">
       <div className="container py-2">
         <div className="d-flex w-100 align-items-center justify-content-between ms-auto">
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
 
+        <div className="collapse navbar-collapse" id="navbarContent">
         {/* Search Bar */}
         <form
-          className="d-flex position-relative flex-grow-1 mx-2"
+          className="d-flex position-relative w-100 flex-grow-1 mx-2"
           onSubmit={handleSubmit}
         >
           <img
@@ -91,6 +92,7 @@ export default function Nav() {
             </span>
 
         </Link>
+        </div>
         </div>
         </div>
       </div>
