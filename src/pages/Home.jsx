@@ -33,7 +33,6 @@ export default function Home() {
 
   return (
     <>
-     (
         <section className="container py-2 my-4">
           <h2>Shop By Genre:</h2>
           {genresLoading ? (
