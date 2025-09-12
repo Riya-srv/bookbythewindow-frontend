@@ -1,59 +1,100 @@
-import { Link } from "react-router-dom";
-import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
-import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useSearch } from "../context/SearchContext";
+import { useWishlist } from "../context/WishlistContext"; 
+import { useCart } from "../context/CartContext"; 
+import searchIcon from "../assets/search.svg";
+import wishlistIcon from "../assets/wishlist.svg";
+import cartIcon from "../assets/cart.svg";
+import profileIcon from "../assets/profile.svg"
 
-export default function Navbar() {
-  const { cart } = useCart();
-  const { wishlist } = useWishlist();
+export default function Nav() {
+  const { searchBook, setSearchBook } = useSearch();
+  const { wishlist } = useWishlist(); 
+  const { cart } = useCart(); 
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchBook.trim()) {
+      navigate("/genre/all");
+    }
+  };
 
   return (
-    <nav className="bg-yellow-400 p-4 shadow-md">
-      <div className="container mx-auto flex items-center justify-between">
-        
-        {/* Left - Logo */}
-        <Link to="/" className="text-xl font-bold text-black">
-          BookByTheWindow
+    <nav className="navbar bg-warning">
+      <div className="container py-2">
+        <div className="d-flex w-100 align-items-center justify-content-between ms-auto">
+        <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
+
+        {/* Search Bar */}
+        <form
+          className="d-flex position-relative flex-grow-1 mx-2"
+          onSubmit={handleSubmit}
+        >
+          <img
+            src={searchIcon}
+            alt="Search"
+            style={{
+              position: "absolute",
+              left: "12px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "16px",
+              height: "16px",
+              opacity: 0.6,
+            }}
+          />
+          <input
+            className="form-control ps-5 me-4"
+            type="search"
+            placeholder="Search"
+            value={searchBook}
+            onChange={(e) => setSearchBook(e.target.value)}
+          />
+        </form>
+        <div className="d-flex align-items-center flex-wrap" style={{ gap: "12px" }}>
+        <button className="btn btn-dark mx-2">Login</button>
+
+        {/* Wishlist with count */}
+        <Link to="/wishlist" className="position-relative mx-2">
+          <img src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
+          {wishlist.length > 0 && (
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "10px" }}
+            >
+              {wishlist.length}
+            </span>
+          )}
         </Link>
 
-        {/* Center - Search */}
-        <div className="flex-1 px-6">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full max-w-md px-3 py-2 rounded-md border border-gray-300 focus:outline-none"
-          />
+        {/* Cart with count */}
+        <Link to="/cart" className="position-relative mx-2">
+          <img src={cartIcon} alt="Cart" style={{ width: "18px", height: "18px" }} />
+          {cart.length > 0 && (
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "10px" }}
+            >
+              {cart.length}
+            </span>
+          )}
+        </Link>
+         <Link to="/profile" className="position-relative mx-2">
+          <img src={profileIcon} alt="Profile" style={{ width: "18px", height: "18px" }} />
+
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "10px" }}
+            >
+
+            </span>
+
+        </Link>
         </div>
-
-        {/* Right - Icons + Login */}
-        <div className="flex items-center gap-6">
-          <Link to="/wishlist" className="relative">
-            <FaHeart size={22} />
-            {wishlist.length > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">
-                {wishlist.length}
-              </span>
-            )}
-          </Link>
-
-          <Link to="/cart" className="relative">
-            <FaShoppingCart size={22} />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">
-                {cart.length}
-              </span>
-            )}
-          </Link>
-
-          <Link to="/profile">
-            <FaUser size={22} />
-          </Link>
-
-          <button className="bg-black text-white px-4 py-1 rounded-md hover:bg-gray-800">
-            Login
-          </button>
         </div>
       </div>
     </nav>
   );
 }
+
