@@ -29,7 +29,6 @@ export default function Nav() {
         {/* Search Bar */}
         <form
           className="d-flex position-relative flex-grow-1 mx-2"
-          style={{ width: "400px" }}
           onSubmit={handleSubmit}
         >
           <img
@@ -53,7 +52,7 @@ export default function Nav() {
             onChange={(e) => setSearchBook(e.target.value)}
           />
         </form>
-        <div className="d-flex align-items-center" style={{ gap: "12px" }}>
+        <div className="d-flex align-items-center flex-wrap" style={{ gap: "12px" }}>
         <button className="btn btn-dark mx-2">Login</button>
 
         {/* Wishlist with count */}
