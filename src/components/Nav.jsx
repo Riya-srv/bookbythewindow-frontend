@@ -26,7 +26,34 @@ export default function Nav() {
         <div className="d-flex w-100 align-items-center justify-content-between ms-auto">
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
 
+        {/* Search Bar */}
+        <form
+          className="d-flex position-relative flex-grow-1 mx-2"
+          onSubmit={handleSubmit}
+        >
+          <img
+            src={searchIcon}
+            alt="Search"
+            style={{
+              position: "absolute",
+              left: "12px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "16px",
+              height: "16px",
+              opacity: 0.6,
+            }}
+          />
+          <input
+            className="form-control ps-5 me-4"
+            type="search"
+            placeholder="Search"
+            value={searchBook}
+            onChange={(e) => setSearchBook(e.target.value)}
+          />
+        </form>
         <div className="d-flex align-items-center flex-wrap" style={{ gap: "12px" }}>
+        <button className="btn btn-dark mx-2">Login</button>
 
         {/* Wishlist with count */}
         <Link to="/wishlist" className="position-relative mx-2">
@@ -65,37 +92,6 @@ export default function Nav() {
 
         </Link>
         </div>
-        <div className="d-flex flex-column flex-md-row align-items-center mt-2">
-        {/* Search */}
-        <form
-          className="d-flex position-relative flex-grow-1 me-md-3 mb-2 mb-md-0"
-          onSubmit={handleSubmit}
-        >
-          <img
-            src={searchIcon}
-            alt="Search"
-            style={{
-              position: "absolute",
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: "16px",
-              height: "16px",
-              opacity: 0.6,
-            }}
-          />
-          <input
-            className="form-control ps-5"
-            type="search"
-            placeholder="Search"
-            value={searchBook}
-            onChange={(e) => setSearchBook(e.target.value)}
-          />
-        </form>
-
-        {/* Login Button */}
-        <button className="btn btn-dark w-100 w-md-auto">Login</button>
-      </div>
         </div>
       </div>
     </nav>
