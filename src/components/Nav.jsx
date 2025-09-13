@@ -27,6 +27,7 @@ export default function Nav() {
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
 
         {/* Search Bar */}
+        <div className="col-12 col-md d-flex flex-row align-items-center mb-2 mb-md-0">
         <form
           className="d-flex position-relative flex-grow-1 mx-2"
           onSubmit={handleSubmit}
@@ -52,9 +53,9 @@ export default function Nav() {
             onChange={(e) => setSearchBook(e.target.value)}
           />
         </form>
-        <div className="d-flex align-items-center flex-wrap" style={{ gap: "12px" }}>
         <button className="btn btn-dark mx-2">Login</button>
-
+        </div>
+        <div className="col-12 col-md-auto d-flex align-items-center justify-content-md-end" style={{ gap: "12px" }}>
         {/* Wishlist with count */}
         <Link to="/wishlist" className="position-relative mx-2">
           <img src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
@@ -93,7 +94,7 @@ export default function Nav() {
         </Link>
         </div>
         </div>
-      </div>
+        </div>
     </nav>
   );
 }
