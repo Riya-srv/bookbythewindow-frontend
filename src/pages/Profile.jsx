@@ -94,8 +94,9 @@ const orderPayload = {
     localStorage.setItem("lastOrder", JSON.stringify(orderPayload));
     localStorage.setItem("selectedUser", JSON.stringify(chosenAddress));
     
-
+    
     setCart([]);
+    localStorage.removeItem("cart");
     navigate("/order-summary");
 
   } catch (err) {
