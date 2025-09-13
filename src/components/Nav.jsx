@@ -29,7 +29,7 @@ export default function Nav() {
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
         </div>
 
-        <div className="col-6 col-md-auto d-flex align-items-center justify-content-end order-3 order-md-3" style={{gap:'12px'}}>
+        <div className="col-6 col-md-auto d-flex align-items-center justify-content-end order-1 order-md-3" style={{gap:'12px'}}>
         {/* Wishlist with count */}
         <Link to="/wishlist" className="position-relative mx-2">
           <img src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
