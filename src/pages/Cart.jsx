@@ -80,7 +80,7 @@ removeFromCart(book._id);
                     Remove
                   </button>
                   
-                  <button className="btn btn-dark btn-sm" onClick={() => moveToWishlist(item)}>
+                  <button className="btn btn-dark btn-sm me-2 mb-2" onClick={() => moveToWishlist(item)}>
                     Move to Wishlist
                   </button>
                   <ToastContainer position="bottom-right" autoClose={2000}/>
