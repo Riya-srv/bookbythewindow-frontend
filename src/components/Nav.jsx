@@ -27,7 +27,7 @@ export default function Nav() {
         <div className="row align-items-center w-100 gx-2">
 
         <div className="col-6 col-md-auto d-flex align-items-center justify-content-start order-1">
-        <NavLink className="navbar-brand" to="/"><img src={logo} alt="logo" style={{ width: "18px", height: "18px" }} />BookByTheWindow</NavLink>
+        <NavLink className="navbar-brand" to="/"><img src={logo} alt="logo" style={{ width: "32px", height: "32px" }} />BookByTheWindow</NavLink>
         </div>
 
         <div className="col-6 col-md-auto d-flex align-items-center justify-content-end order-1 order-md-3" style={{gap:'12px'}}>
