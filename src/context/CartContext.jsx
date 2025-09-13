@@ -7,10 +7,15 @@ export const CartProvider = ({ children }) => {
   const [order, setOrder] = useState(null);
 
     useEffect(() => {
+    const isCleared = localStorage.getItem("cartClearedAfterCheckout");
+    if (!isCleared) {
     const stored = localStorage.getItem("cart");
     if (stored) {
       setCart(JSON.parse(stored));
     }
+  } else {
+    localStorage.removeItem("cartClearedAfterCheckout");
+  }
 
     fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart")
       .then((res) => res.json())

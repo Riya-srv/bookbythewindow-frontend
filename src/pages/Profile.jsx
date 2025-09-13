@@ -97,6 +97,7 @@ const orderPayload = {
     
     setCart([]);
     localStorage.removeItem("cart");
+    localStorage.setItem("cartClearedAfterCheckout", "true");
     navigate("/order-summary");
 
   } catch (err) {
