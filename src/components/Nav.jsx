@@ -29,7 +29,7 @@ export default function Nav() {
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
         </div>
 
-        <div className="col-6 col-md-auto d-flex align-items-center justify-content-end order-2" style={{gap:'12px'}}>
+        <div className="col-6 col-md-auto d-flex align-items-center justify-content-end order-3 order-md-3" style={{gap:'12px'}}>
         {/* Wishlist with count */}
         <Link to="/wishlist" className="position-relative mx-2">
           <img src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
@@ -68,9 +68,9 @@ export default function Nav() {
         </Link>
         </div>
         {/* Search Bar */}
-        <div className="col-12 col-md d-flex align-items-center justify-content-center order-3 order-md-3 mt-2 mt-md-0">
+        <div className="col-12 col-md d-flex align-items-center justify-content-center order-2 order-md-2 mt-2 mt-md-0">
         <form
-          className="flex-grow-1 me-2"
+          className="flex-grow-1 me-2 position-relative"
           onSubmit={handleSubmit}
         >
           <img
