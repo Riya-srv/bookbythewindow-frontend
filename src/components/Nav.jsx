@@ -23,9 +23,11 @@ export default function Nav() {
   return (
     <nav className="navbar bg-warning">
       <div className="container py-2">
-        <div className="d-flex w-100 align-items-center justify-content-between ms-auto">
-        <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
+        <div className="row align-items-center w-100 gx-2">
 
+        <div className="col-12 col-md-auto mb-2 mb-md-0">
+        <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
+        </div>
         {/* Search Bar */}
         <div className="col-12 col-md d-flex flex-row align-items-center mb-2 mb-md-0">
         <form
