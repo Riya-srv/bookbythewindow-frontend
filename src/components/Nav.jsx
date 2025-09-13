@@ -25,39 +25,11 @@ export default function Nav() {
       <div className="container py-2">
         <div className="row align-items-center w-100 gx-2">
 
-        <div className="col-12 col-md-auto mb-2 mb-md-0">
+        <div className="col-6 col-md-auto mb-2 mb-md-0">
         <NavLink className="navbar-brand" to="/">BookByTheWindow</NavLink>
         </div>
-        {/* Search Bar */}
-        <div className="col-12 col-md d-flex flex-row align-items-center mb-2 mb-md-0">
-        <form
-          className="d-flex position-relative flex-grow-1 mx-2"
-          onSubmit={handleSubmit}
-        >
-          <img
-            src={searchIcon}
-            alt="Search"
-            style={{
-              position: "absolute",
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: "16px",
-              height: "16px",
-              opacity: 0.6,
-            }}
-          />
-          <input
-            className="form-control ps-5 me-4"
-            type="search"
-            placeholder="Search"
-            value={searchBook}
-            onChange={(e) => setSearchBook(e.target.value)}
-          />
-        </form>
-        <button className="btn btn-dark mx-2">Login</button>
-        </div>
-        <div className="col-12 col-md-auto d-flex align-items-center justify-content-md-end" style={{ gap: "12px" }}>
+
+        <div className="col-6 col-md-auto d-flex align-items-center justify-content-md-end" style={{ gap: "12px" }}>
         {/* Wishlist with count */}
         <Link to="/wishlist" className="position-relative mx-2">
           <img src={wishlistIcon} alt="Wishlist" style={{ width: "18px", height: "18px" }} />
@@ -95,6 +67,36 @@ export default function Nav() {
 
         </Link>
         </div>
+        {/* Search Bar */}
+        <div className="col-12 col-md d-flex flex-row align-items-center mb-2 mb-md-0">
+        <form
+          className="d-flex position-relative flex-grow-1 mx-2"
+          onSubmit={handleSubmit}
+        >
+          <img
+            src={searchIcon}
+            alt="Search"
+            style={{
+              position: "absolute",
+              left: "12px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "16px",
+              height: "16px",
+              opacity: 0.6,
+            }}
+          />
+          <input
+            className="form-control ps-5 me-4"
+            type="search"
+            placeholder="Search"
+            value={searchBook}
+            onChange={(e) => setSearchBook(e.target.value)}
+          />
+        </form>
+        <button className="btn btn-dark mx-2">Login</button>
+        </div>
+
         </div>
         </div>
     </nav>
