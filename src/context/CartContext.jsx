@@ -60,6 +60,23 @@ useEffect(() => {
 
   // Add item to cart
   const addToCart = (book) => {
+  const isCleared = localStorage.getItem("cartClearedAfterCheckout");
+
+  if (isCleared) {
+    const newCart = [{
+      bookId: book._id,
+      title: book.title,
+      price: book.price,
+      qty: 1,
+      coverImageUrl: book.coverImageUrl,
+      _id: book._id, 
+    }];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    localStorage.removeItem("cartClearedAfterCheckout");
+    return; 
+  }
+
       const existingItem = cart.find((item) => item.bookId === book._id);
   if (existingItem) {
     // Increment qty by 1 using updateQuantity (reuse your logic)
