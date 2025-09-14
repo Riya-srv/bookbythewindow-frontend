@@ -6,19 +6,18 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [order, setOrder] = useState(null);
 
-    useEffect(() => {
-    const isCleared = localStorage.getItem("cartClearedAfterCheckout");
-    if (isCleared) {
-      setCart([]); 
-      localStorage.removeItem("cart");
-      localStorage.removeItem("cartClearedAfterCheckout");
-      return; 
-    } else {
-      const stored = localStorage.getItem("cart");
-      if (stored) {
-        setCart(JSON.parse(stored));
-      }
-    }
+useEffect(() => {
+  const isCleared = localStorage.getItem("cartClearedAfterCheckout");
+  const stored = localStorage.getItem("cart");
+
+  if (isCleared) {
+    setCart([]); 
+    localStorage.removeItem("cart");
+    localStorage.removeItem("cartClearedAfterCheckout");
+    return; 
+  }
+  if (stored && JSON.parse(stored).length > 0) {
+    setCart(JSON.parse(stored));
     fetch("https://bookbythewindow-backend-x2aq.vercel.app/api/cart")
       .then((res) => res.json())
       .then((data) => {
@@ -26,12 +25,12 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem("cart", JSON.stringify(data.cart));
       })
       .catch((err) => console.error("Error fetching cart:", err));
-  }, []);
+  } else {
+    setCart([]);
+    localStorage.setItem("cart", JSON.stringify([]));
+  }
+}, []);
 
-    useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    console.log("Cart updated:", cart);
-  }, [cart]);
 
     // Update quantity
   const updateQuantity = (id, qty) => {
