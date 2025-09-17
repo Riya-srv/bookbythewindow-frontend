@@ -3,11 +3,13 @@ import { Link } from "react-router-dom"
 import profileIcon from "../assets/profile.svg";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export default function Profile() {
   const { cart, cartTotal, setOrder, setCart } = useCart();
   const navigate = useNavigate();
+  const notifyForUserAddress = () => toast("Please select a user/address.");
 
   const user = {
     name: "Riya Srivastava",
@@ -66,7 +68,7 @@ export default function Profile() {
   const handleCheckout = async () => {
   try {
     if (!selectedAddress) {
-      alert("Please select an address before checkout.");
+      notifyForUserAddress();
       return;
     }
 
@@ -108,7 +110,7 @@ const orderPayload = {
 
 const handleViewHistory = () => {
   if (!selectedAddress) {
-    alert("Please select a user/address before viewing order history.");
+    notifyForUserAddress();
     return;
   }
   navigate("/order-history");
@@ -321,6 +323,11 @@ const handleViewHistory = () => {
           View Order History
         </button>
       </div>
+      <ToastContainer
+      position="top-right"
+      autoClose={2000}
+      theme="colored"
+    />
     </div>
   );
 }
