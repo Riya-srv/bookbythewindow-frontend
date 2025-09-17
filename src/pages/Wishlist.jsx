@@ -113,7 +113,7 @@ export default function Wishlist() {
                           updateQuantity(cartItem.bookId, currentQty + 1);
                           notifyForCart();
                     }}}>
-                    "Add to Cart"
+                    Add to Cart
                   </button>
                 </div>
               </div>
